@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hey there</title>
+  </head>
+  <body>
+    <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.1.318/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.1.318/styles/kendo.bootstrap.min.css" />
+
+    <script src="http://cdn.kendostatic.com/2014.1.318/js/jquery.min.js"></script>
+    <script src="http://cdn.kendostatic.com/2014.1.318/js/kendo.all.min.js"></script>
+
+    <br />
+    <div id="grid"></div>
+
+    <script>
+        var remoteDataSource = new kendo.data.DataSource({
+            pageSize: 20,
+             transport: {
+                 read: {
+                     url: "http://localhost:3000/users/",
+                     dataType: "json",
+                     type: "GET"
+                 },
+                 create: {
+                     url: "http://localhost:3000/customers/",
+                     dataType: "json",
+                     type: "POST"
+                 },
+                 update: {
+                     url : function (item) {
+                         return 'http://localhost:3000/customers/' + item.Id;
+                     },
+                     dataType: "json",
+                     type: "PUT"
+                 },
+                 destroy: {
+                     url : function (item) {
+                         return 'http://localhost:3000/customers/' + item.Id;
+                     },
+                     dataType: "json",
+                     type: "DELETE"
+                 }
+             },
+             schema: {
+                 model: {
+                     id: "Id",
+                     fields: {
+                         Id: { editable: false, type: "number" },
+                         first_name: { validation: { required: true} }
+                     }
+                 }
+             }
+         });
+
+        $('#grid').kendoGrid({
+            dataSource: remoteDataSource,
+            toolbar: [{name:"create", text: "Create Customer"}],
+            editable: "popup",
+            scrollable: true,
+            sortable: true,
+            filterable: true,
+            pageable: {
+                refresh: true,
+                pageSizes: true,
+                buttonCount: 5
+            },
+            columns: [
+                    {
+                        field: "Id",
+                        title: "Id"
+                    },
+                    {
+                        field: "first_name",
+                        title: "Name"
+                    },
+                    {
+                        command: ["edit", "destroy"],
+                        width: "200px"
+                    }
+            ]
+        });
+    </script>
+  </body>
+</html>

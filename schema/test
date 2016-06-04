@@ -1,0 +1,2 @@
+exports.company = 'Google';
+exports.name = 'test';
