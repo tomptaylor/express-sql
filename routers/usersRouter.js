@@ -1,15 +1,19 @@
+var db = require('../db');
+
 module.exports = (
   function() {
     'use strict';
-    var User = require('../schema/usersSchema2');
+//    var User = require('../schema/usersSchema2');
     var router = require('express').Router();
 
     router.get('/', function(req, res) {
-      User.find({}, function (err, docs) {
-        console.log(User);
-        process.exit();
-         res.json(docs);
-      })
+      db.query('CALL sp_test()',function(err,rows){
+        console.log('Data received from Db:\n');
+        res.send(rows[0]);
+      //  res.send(rows);
+        // res.json(rows);
+      });
+
     })
     .post(function(req, res) {
       res.send('Add a book');

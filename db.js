@@ -1,9 +1,25 @@
-var mongoose = require('mongoose');
+var mysql = require("mysql");
 
-mongoose.connect('mongodb://stacy:stacygirl@ds035607.mlab.com:35607/testtom', function (error) {
-    if (error) {
-        console.log(error);
-    }
+// First you need to create a connection to the db
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "denver",
+  database: "mydb"
 });
 
-module.exports = mongoose.connection;
+con.connect(function(err){
+  if(err){
+    console.log('Error connecting to Db');
+    return;
+  }
+  console.log('Connection established');
+});
+
+// con.end(function(err) {
+//   // The connection is terminated gracefully
+//   // Ensures all previously enqueued queries are still
+//   // before sending a COM_QUIT packet to the MySQL server.
+// });
+
+module.exports = con;
