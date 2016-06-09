@@ -12,6 +12,7 @@
     <script src="http://cdn.kendostatic.com/2014.1.318/js/kendo.all.min.js"></script>
 
     <br />
+
     <div id="grid"></div>
 
     <script>
@@ -19,25 +20,25 @@
             pageSize: 20,
              transport: {
                  read: {
-                     url: "http://localhost:3000/users/",
+                     url: "http://localhost:8000/users/",
                      dataType: "json",
                      type: "GET"
                  },
                  create: {
-                     url: "http://localhost:3000/customers/",
+                     url: "http://localhost:8000/users/",
                      dataType: "json",
                      type: "POST"
                  },
                  update: {
                      url : function (item) {
-                         return 'http://localhost:3000/customers/' + item.Id;
+                         return 'http://localhost:8000/users/' + item.id;
                      },
                      dataType: "json",
                      type: "PUT"
                  },
                  destroy: {
                      url : function (item) {
-                         return 'http://localhost:3000/customers/' + item.Id;
+                         return 'http://localhost:8000/customers/' + item.Id;
                      },
                      dataType: "json",
                      type: "DELETE"
@@ -45,10 +46,10 @@
              },
              schema: {
                  model: {
-                     id: "Id",
+                     id: "id",
                      fields: {
-                         AuthID: { editable: false, type: "number" },
-                         AuthorFirstName: { validation: { required: true} }
+                         id: { editable: false, type: "number" },
+                         first_name: { validation: { required: true} }
                      }
                  }
              }
@@ -68,11 +69,11 @@
             },
             columns: [
                     {
-                        field: "Id",
+                        field: "id",
                         title: "Id"
                     },
                     {
-                        field: "AuthorFirstName",
+                        field: "first_name",
                         title: "Name"
                     },
                     {
