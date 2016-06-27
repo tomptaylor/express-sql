@@ -17,6 +17,36 @@
 
     <script>
         var remoteDataSource = new kendo.data.DataSource({
+          change: function (e) {
+            console.log(e);
+            alert ("change");
+          },
+          error: function (e) {
+       /* the e event argument will represent the following object:
+
+       {
+           errorThrown: "Unauthorized",
+           sender: {... the Kendo UI DataSource instance ...}
+           status: "error"
+           xhr: {... the Ajax request object ...}
+       }
+
+       */
+       alert("Status: " + e.status + "; Error message: " + e.errorThrown);
+     },
+     success: function (e) {
+       /* the e event argument will represent the following object:
+
+       {
+           errorThrown: "Unauthorized",
+           sender: {... the Kendo UI DataSource instance ...}
+           status: "error"
+           xhr: {... the Ajax request object ...}
+       }
+
+       */
+       alert("Status: " );
+     },
             pageSize: 20,
              transport: {
                  read: {
