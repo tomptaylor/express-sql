@@ -4,6 +4,7 @@ Icon?
 ._*
 
 # npm
+db.js
 node_modules
 *.log
 *.gz
